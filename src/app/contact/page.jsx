@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import PageHero from '@/components/PageHero'
 import { GoldButton } from '@/components/Buttons'
 import { Eyebrow } from '@/components/SectionIntro'
@@ -29,31 +29,16 @@ const SELECT_ARROW = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org
 function ContactSection() {
   const formRef = useRef(null)
   const infoRef = useRef(null)
-  const fileInputRef = useRef(null)
 
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(null)
-  const [dragOver, setDragOver] = useState(false)
-  const [files, setFiles] = useState([])
-  const [previews, setPreviews] = useState([])
   const [form, setForm] = useState({
     name: '', email: '', phone: '', eventDate: '',
     guests: '', cakeType: 'Weddings', fulfillment: '', message: '',
   })
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value })
-
-  const applyFiles = useCallback((incoming) => {
-    const imgs = Array.from(incoming).filter((f) => f.type.startsWith('image/'))
-    setFiles(imgs)
-    setPreviews((prev) => {
-      prev.forEach((url) => URL.revokeObjectURL(url))
-      return imgs.map((f) => URL.createObjectURL(f))
-    })
-  }, [])
-
-  useEffect(() => () => previews.forEach((url) => URL.revokeObjectURL(url)), [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -63,15 +48,11 @@ function ContactSection() {
       const formData = new FormData()
       Object.entries(form).forEach(([k, v]) => formData.append(k, v))
       formData.append('access_key', '7fc6669b-4903-42b5-a343-ecebbda3c330')
-      files.forEach((f) => formData.append('inspiration_photos', f, f.name))
       const response = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
       const data = await response.json()
       if (response.ok) {
         setSubmitted(true)
         setForm({ name: '', email: '', phone: '', eventDate: '', guests: '', cakeType: 'Weddings', fulfillment: '', message: '' })
-        setPreviews((prev) => { prev.forEach((url) => URL.revokeObjectURL(url)); return [] })
-        setFiles([])
-        if (fileInputRef.current) fileInputRef.current.value = ''
       } else {
         setError(data.message || 'Submission failed. Please try again.')
       }
@@ -140,14 +121,6 @@ function ContactSection() {
   const handleBlur = (e) => {
     e.target.style.borderColor = 'var(--color-hairline)'
     e.target.style.boxShadow = 'none'
-  }
-
-  const handleDragOver = (e) => { e.preventDefault(); setDragOver(true) }
-  const handleDragLeave = () => setDragOver(false)
-  const handleDrop = (e) => {
-    e.preventDefault()
-    setDragOver(false)
-    applyFiles(e.dataTransfer.files)
   }
 
   return (
@@ -241,86 +214,6 @@ function ContactSection() {
                 placeholder="Theme, color palette, inspiration photos, dietary needs — anything that helps us picture the day."
                 style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }}
               />
-            </Field>
-          </div>
-
-          {/* File upload */}
-          <div className="form-field">
-            <Field label="Upload Inspiration Photos (optional)">
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
-                style={{
-                  border: `2px dashed ${dragOver ? 'var(--color-gold)' : 'var(--color-hairline)'}`,
-                  borderRadius: 10,
-                  padding: '22px 20px',
-                  background: dragOver ? 'rgba(201,168,76,.06)' : 'var(--color-cream-soft)',
-                  cursor: 'pointer',
-                  transition: 'border-color 180ms ease, background 180ms ease',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 8,
-                  textAlign: 'center',
-                }}
-              >
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: 15, color: 'var(--color-ink)' }}>
-                  {files.length > 0 ? 'Click or drop to replace' : 'Drag & drop images here'}
-                </span>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: 13, color: 'var(--color-muted)' }}>
-                  or <span style={{ color: 'var(--color-gold)', textDecoration: 'underline' }}>browse files</span> · up to 2 images, 5 MB each
-                </span>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  style={{ display: 'none' }}
-                  onChange={(e) => applyFiles(e.target.files)}
-                />
-              </div>
-
-              {previews.length > 0 && (
-                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
-                  {previews.map((src, i) => (
-                    <div key={i} style={{ position: 'relative' }}>
-                      <img
-                        src={src}
-                        alt={files[i]?.name}
-                        style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 8, border: '1px solid var(--color-hairline)' }}
-                      />
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          const next = files.filter((_, j) => j !== i)
-                          URL.revokeObjectURL(previews[i])
-                          setFiles(next)
-                          setPreviews(previews.filter((_, j) => j !== i))
-                        }}
-                        style={{
-                          position: 'absolute', top: -6, right: -6,
-                          width: 20, height: 20, borderRadius: '50%',
-                          background: 'var(--color-ink)', color: '#fff',
-                          border: 'none', cursor: 'pointer',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontSize: 11, lineHeight: 1,
-                        }}
-                        aria-label={`Remove ${files[i]?.name}`}
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
             </Field>
           </div>
 
