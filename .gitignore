@@ -12,6 +12,13 @@ out/
 .env.test.local
 .env.production.local
 
+# design-sync (staged scripts, build output, machine state)
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
+
 # misc
 .DS_Store
 *.pem

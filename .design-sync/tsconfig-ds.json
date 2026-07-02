@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/data": ["./src/data/index.js"],
+      "@/data/*": ["./src/data/*"],
+      "@/hooks/useScrollReveal": ["./src/hooks/useScrollReveal.js"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/*": ["./src/*"]
+    }
+  }
+}
