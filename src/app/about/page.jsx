@@ -14,9 +14,8 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About Us"
-        title="A Husband & Wife,"
-        titleItalicPart="and One Tiny Kitchen."
-        sub="We've been baking cakes in Wilmington, North Carolina since 2009. Every cake that leaves our counter is made by the two of us."
+        title="A Family Recipe, Baked with Love"
+        sub="Have a vision for your next celebration? We'd love to hear about it."
       />
       <StorySection />
       <StatsSection />
@@ -65,10 +64,10 @@ function StorySection() {
             From a small home kitchen to <em>Carolina Beach Road.</em>
           </h2>
           <p style={{ marginTop: 18, fontFamily: 'var(--font-display)', fontSize: 17, lineHeight: 1.65 }}>
-            Imaginary Cakes started as a side project — Cindy baking wedding cakes for friends on weekends. Sixteen years and a thousand cakes later, we're a husband-and-wife bakery on Carolina Beach Road, baking exclusively by appointment so every cake gets our full attention.
+            Imaginary Cakes is a mother-daughter bakery built on butter, patience, and a shared love of making people smile. Owner Caris Loomis brings years of hands-on baking experience and an eye for detail to every custom creation, while her daughter Addi adds fresh ideas and creative flair to keep things exciting.
           </p>
           <p style={{ marginTop: 14, fontFamily: 'var(--font-display)', fontSize: 17, lineHeight: 1.65 }}>
-            We work in buttercream and fondant — the proper kind, made the morning of, never shelf-bought. Wedding cakes are our signature, but we'll bake whatever the moment calls for.
+            Together, they treat every cake like it's for their own family's celebration — because to them, your special day feels just like one.
           </p>
           <div style={{ marginTop: 28 }}>
             <GoldButton href="/contact">Bring Us Your Idea</GoldButton>
