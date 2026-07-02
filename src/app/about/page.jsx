@@ -64,10 +64,10 @@ function StorySection() {
             From a small home kitchen to <em>Carolina Beach Road.</em>
           </h2>
           <p style={{ marginTop: 18, fontFamily: 'var(--font-display)', fontSize: 17, lineHeight: 1.65 }}>
-            Imaginary Cakes is a mother-daughter bakery built on butter, patience, and a shared love of making people smile. Owner Caris Loomis brings years of hands-on baking experience and an eye for detail to every custom creation, while her daughter Addi adds fresh ideas and creative flair to keep things exciting.
+            Carris Loomis has worked with Imaginary Cakes for the past four years, having previously served as a manager at Fish Bites. Knowing Courtney and hearing about the sale of the company, Carris felt this was a challenge she was ready to take on. She started training in February 2026 and took full ownership in March, with Courtney by her side to make it a successful transition.
           </p>
           <p style={{ marginTop: 14, fontFamily: 'var(--font-display)', fontSize: 17, lineHeight: 1.65 }}>
-            Together, they treat every cake like it's for their own family's celebration — because to them, your special day feels just like one.
+            Her daughter, Addii, has joined her to help build an amazing team. Without her team, she wouldn't be here.
           </p>
           <div style={{ marginTop: 28 }}>
             <GoldButton href="/contact">Bring Us Your Idea</GoldButton>
