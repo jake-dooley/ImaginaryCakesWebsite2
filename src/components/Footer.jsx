@@ -72,7 +72,6 @@ export default function Footer() {
           gap: 8,
         }}>
           <div>© 2026 Imaginary Cakes. All rights reserved.</div>
-          <div>{BUSINESS.notice}</div>
         </div>
       </div>
 
