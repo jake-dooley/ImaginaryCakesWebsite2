@@ -334,7 +334,6 @@ function FAQSection() {
   const ref = useScrollReveal({ y: 30 })
   return (
     <section style={{ padding: '96px 48px', maxWidth: 1080, margin: '0 auto', position: 'relative' }}>
-      <BotanicalSprig side="left" size={120} style={{ position: 'absolute', left: -8, top: 200, opacity: 0.38 }} />
       <SectionIntro eyebrow="FAQ" title="Find Answers to Your Most" titleItalicPart="Common Questions." />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 32, alignItems: 'flex-start' }}>
         <FAQAccordion items={FAQS.slice(0, 5)} />
