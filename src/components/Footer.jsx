@@ -13,19 +13,19 @@ export default function Footer() {
         }}>
           {/* Brand */}
           <div>
-            <img src="/assets/logo.png" alt="Imaginary Cakes" style={{ height: 80 }} />
+            <img src="/assets/Imaginary_cakes_Logo_final.png" alt="Imaginary Cakes logo" style={{ height: 80, width: 'auto' }} />
             <p style={{ marginTop: 18, fontStyle: 'italic', color: 'var(--color-body)', fontSize: 16, maxWidth: 360 }}>
-              "{BUSINESS.tagline}"
+              &ldquo;{BUSINESS.tagline}&rdquo;
             </p>
             <p style={{ marginTop: 12, fontSize: 14, color: 'var(--color-muted)' }}>
-              Mother-daughter custom cake bakery in Wilmington, NC. Established {BUSINESS.established}.
+              Custom bakery in Wilmington, established in {BUSINESS.established}.
             </p>
           </div>
 
           {/* Visit */}
           <FooterCol title="Visit">
             <FooterRow icon={<IconMapPin size={14} />}>{BUSINESS.address}</FooterRow>
-            <FooterRow icon={<IconClock size={14} />}>{BUSINESS.hours}</FooterRow>
+            <FooterRow icon={<IconClock size={14} />}>{BUSINESS.hours}<br />{BUSINESS.hoursSaturday}</FooterRow>
             <FooterRow muted>{BUSINESS.hoursNote}</FooterRow>
           </FooterCol>
 

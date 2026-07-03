@@ -11,18 +11,19 @@ import { RATINGS } from '@/data'
 
 export default function AboutPage() {
   return (
-    <>
+    <div style={{ '--page-accent': 'var(--sprinkle-pink)', background: 'var(--sprinkle-pink)' }}>
       <PageHero
         eyebrow="About Us"
         title="A Family Recipe, Baked with Love"
         sub="Have a vision for your next celebration? We'd love to hear about it."
+        accentColor="#fff"
       />
       <StorySection />
       <StatsSection />
       <WhatWeMakeSection />
       <AwardsSection />
       <ClosingCTA />
-    </>
+    </div>
   )
 }
 
@@ -31,20 +32,30 @@ function StorySection() {
   const textRef = useScrollReveal({ y: 40 })
 
   useEffect(() => {
+    let ctx
+    let cancelled = false
     ;(async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      if (cancelled) return
       gsap.registerPlugin(ScrollTrigger)
       if (!imgRef.current) return
-      gsap.fromTo(
-        imgRef.current,
-        { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
-        {
-          clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1.1, ease: 'power3.out',
-          scrollTrigger: { trigger: imgRef.current, start: 'top 85%', toggleActions: 'play none none none' },
-        }
-      )
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          imgRef.current,
+          { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+          {
+            clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1.1, ease: 'power3.out',
+            scrollTrigger: { trigger: imgRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+          }
+        )
+      })
     })()
+
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
   }, [])
 
   return (
@@ -59,15 +70,15 @@ function StorySection() {
         </div>
         <div ref={textRef}>
           <Eyebrow align="left">Since 2009</Eyebrow>
-          <OrnamentRule align="left" style={{ marginLeft: 0 }} />
+          <OrnamentRule align="left" style={{ marginLeft: 0 }} color="#fff" />
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(24px, 3vw, 38px)', fontWeight: 500, lineHeight: 1.15, margin: 0 }}>
             From a small home kitchen to <em>Carolina Beach Road.</em>
           </h2>
           <p style={{ marginTop: 18, fontFamily: 'var(--font-display)', fontSize: 17, lineHeight: 1.65 }}>
-            Carris Loomis has worked with Imaginary Cakes for the past four years, having previously served as a manager at Fish Bites. Knowing Courtney and hearing about the sale of the company, Carris felt this was a challenge she was ready to take on. She started training in February 2026 and took full ownership in March, with Courtney by her side to make it a successful transition.
+            Imaginary Cakes is a mother-daughter bakery built on butter, patience, and a shared love of making people smile. Owner Caris Loomis brings years of hands-on baking experience and an eye for detail to every custom creation, while her daughter Addi adds fresh ideas and creative flair to keep things exciting.
           </p>
           <p style={{ marginTop: 14, fontFamily: 'var(--font-display)', fontSize: 17, lineHeight: 1.65 }}>
-            Her daughter, Addii, has joined her to help build an amazing team. Without her team, she wouldn't be here.
+            Together, they treat every cake like it&apos;s for their own family&apos;s celebration — because to them, your special day feels just like one.
           </p>
           <div style={{ marginTop: 28 }}>
             <GoldButton href="/contact">Bring Us Your Idea</GoldButton>
@@ -86,16 +97,16 @@ function StorySection() {
 function WhatWeMakeSection() {
   const ref = useStaggerReveal('.feature-card', { stagger: 0.12 })
   return (
-    <section style={{ maxWidth: 1240, margin: '0 auto', padding: '0 48px 96px' }}>
-      <SectionIntro eyebrow="What We Make" title="Custom, By Definition —" titleItalicPart="Never From a Catalogue." />
+    <section style={{ maxWidth: 1240, margin: '0 auto', padding: '72px 48px 96px' }}>
+      <SectionIntro eyebrow="What We Make" title="Custom, By Definition —" titleItalicPart="Never From a Catalogue." accentColor="#fff" />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
         {[
-          { title: 'Buttercream & Fondant', body: 'Italian and Swiss buttercream piped fresh; smooth fondant in vanilla and chocolate. We pick the medium that suits your design, never the other way round.' },
-          { title: 'Fully Sculpted 3D Cakes', body: 'From hand-painted teapots to life-size animal portraits. Internal supports and edible cake — even the seashells were edible.' },
-          { title: 'Dietary Considerations', body: 'Vegan chocolate with vegan buttercream, and gluten-free options on most flavors. We\'ll talk through the right adjustment for your guests.' },
+          { title: 'Buttercream & Fondant', body: 'Italian and Swiss buttercream piped fresh; smooth fondant in vanilla and chocolate. We pick the medium that suits your design, never the other way round.', bg: '#fff' },
+          { title: 'Fully Sculpted 3D Cakes', body: 'From hand-painted teapots to life-size animal portraits. Internal supports and edible cake — even the seashells were edible.', bg: '#fff' },
+          { title: 'Dietary Considerations', body: 'Vegan chocolate with vegan buttercream, and gluten-free options on most flavors. We\'ll talk through the right adjustment for your guests.', bg: '#fff' },
         ].map((c) => (
           <div key={c.title} className="feature-card" style={{
-            background: 'var(--color-cream-soft)', borderRadius: 16, padding: 28,
+            background: c.bg, borderRadius: 16, padding: 28,
             boxShadow: 'var(--shadow-card)',
           }}>
             <h4 style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 500, margin: 0 }}>{c.title}</h4>
@@ -116,9 +127,9 @@ function WhatWeMakeSection() {
 function AwardsSection() {
   const ref = useScrollReveal({ y: 30 })
   return (
-    <section style={{ padding: '72px 48px 96px', background: 'var(--color-cream-soft)' }}>
+    <section style={{ padding: '72px 48px 96px' }}>
       <Eyebrow style={{ marginBottom: 16 }}>Recognized By</Eyebrow>
-      <OrnamentRule />
+      <OrnamentRule color="#fff" />
       <h2 style={{ textAlign: 'center', fontFamily: 'var(--font-display)', fontSize: 32, fontWeight: 500, margin: '0 0 48px' }}>
         A few kind words from the <em>wedding world.</em>
       </h2>

@@ -16,7 +16,7 @@ import { CAKE_PHOTOS, FAQS } from '@/data'
 
 export default function HomePage() {
   return (
-    <>
+    <div style={{ '--page-accent': 'var(--sprinkle-blue)', background: 'var(--sprinkle-blue)' }}>
       <HeroSection />
       <TraditionBand />
       <CategoriesSection />
@@ -26,7 +26,7 @@ export default function HomePage() {
       <FAQSection />
       <AwardsSection />
       <ClosingCTA />
-    </>
+    </div>
   )
 }
 
@@ -101,7 +101,7 @@ function HeroSection() {
           {/* Diamond rule */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '26px 0 18px' }}>
             <div style={{ width: 60, height: 1, background: 'var(--color-border)' }} />
-            <div style={{ width: 6, height: 6, border: '1px solid var(--color-ink)', transform: 'rotate(45deg)' }} />
+            <div style={{ width: 6, height: 6, border: '1px solid #fff', transform: 'rotate(45deg)' }} />
             <div style={{ width: 60, height: 1, background: 'var(--color-border)' }} />
           </div>
 
@@ -112,18 +112,9 @@ function HeroSection() {
               fontSize: 19,
               color: 'var(--color-body)',
               maxWidth: 460,
-              margin: '0 0 12px',
-            }}>
-              For your sweetest moments, because every occasion deserves something beautiful.
-            </p>
-            <p style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 16,
-              color: 'var(--color-muted)',
-              maxWidth: 460,
               margin: 0,
             }}>
-              Indulge in our signature butter pound cake, made with the finest ingredients.
+              For your sweetest moments, because every occasion deserves something beautiful.
             </p>
           </div>
 
@@ -161,37 +152,47 @@ function TraditionBand() {
   const textRef = useRef(null)
 
   useEffect(() => {
+    let ctx
+    let cancelled = false
     ;(async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      if (cancelled) return
       gsap.registerPlugin(ScrollTrigger)
 
-      // Parallax on the image
-      if (imgRef.current) {
-        gsap.to(imgRef.current, {
-          yPercent: -15,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: imgRef.current.parentElement,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        })
-      }
+      ctx = gsap.context(() => {
+        // Parallax on the image
+        if (imgRef.current) {
+          gsap.to(imgRef.current, {
+            yPercent: -15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: imgRef.current.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          })
+        }
 
-      // Text reveal
-      if (textRef.current) {
-        gsap.fromTo(
-          textRef.current.children,
-          { y: 40, opacity: 0 },
-          {
-            y: 0, opacity: 1, duration: 0.9, stagger: 0.15, ease: 'power2.out',
-            scrollTrigger: { trigger: textRef.current, start: 'top 80%', toggleActions: 'play none none none' },
-          }
-        )
-      }
+        // Text reveal
+        if (textRef.current) {
+          gsap.fromTo(
+            textRef.current.children,
+            { y: 40, opacity: 0 },
+            {
+              y: 0, opacity: 1, duration: 0.9, stagger: 0.15, ease: 'power2.out',
+              scrollTrigger: { trigger: textRef.current, start: 'top 80%', toggleActions: 'play none none none' },
+            }
+          )
+        }
+      })
     })()
+
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
   }, [])
 
   return (
@@ -239,6 +240,7 @@ function CategoriesSection() {
         title="A Delight for Every Celebration —"
         titleItalicPart="Choose Your Slice."
         sub="From garden weddings to sculpted 3D showstoppers, every cake we make is fully custom."
+        accentColor="#fff"
       />
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32, alignItems: 'end' }}>
@@ -288,6 +290,7 @@ function OurWorksSection() {
         title="Every Cake"
         titleItalicPart="Tells a Sweet Story."
         sub="A peek at recent celebrations baked from our Wilmington kitchen."
+        accentColor="#fff"
       />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
         {CAKE_PHOTOS.slice(0, 4).map((c) => (
@@ -321,9 +324,10 @@ function TestimonialsSection() {
         title="Every Review Tells a Story —"
         titleItalicPart="Here's What You Think."
         sub="Five years of weddings, birthdays, and impossible 3D cakes — and the kindest words."
+        accentColor="#fff"
       />
       <div ref={ref}>
-        <TestimonialCarousel />
+        <TestimonialCarousel accent="var(--sprinkle-blue)" />
       </div>
     </section>
   )
@@ -334,10 +338,10 @@ function FAQSection() {
   const ref = useScrollReveal({ y: 30 })
   return (
     <section style={{ padding: '96px 48px', maxWidth: 1080, margin: '0 auto', position: 'relative' }}>
-      <SectionIntro eyebrow="FAQ" title="Find Answers to Your Most" titleItalicPart="Common Questions." />
+      <SectionIntro eyebrow="FAQ" title="Find Answers to Your Most" titleItalicPart="Common Questions." accentColor="#fff" />
       <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 32, alignItems: 'flex-start' }}>
         <FAQAccordion items={FAQS.slice(0, 5)} />
-        <FAQHelpCard href="/contact" />
+        <FAQHelpCard href="/contact" accent="var(--sprinkle-blue)" />
       </div>
       <style>{`
         @media (max-width: 760px) {
@@ -354,7 +358,7 @@ function AwardsSection() {
   return (
     <section style={{ padding: '0 48px 96px' }}>
       <Eyebrow style={{ marginBottom: 16 }}>Featured On</Eyebrow>
-      <OrnamentRule />
+      <OrnamentRule color="#fff" />
       <div ref={ref} style={{ maxWidth: 1240, margin: '0 auto' }}>
         <AwardsRow />
       </div>

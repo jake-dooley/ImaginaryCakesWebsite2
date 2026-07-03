@@ -3,19 +3,25 @@ import { useState, useRef, useCallback } from 'react'
 import { IconChevronLeft, IconChevronRight } from './Icons'
 import { REVIEWS } from '@/data'
 
-export default function TestimonialCarousel({ reviews = REVIEWS }) {
+export default function TestimonialCarousel({ reviews = REVIEWS, tint = '#fff', accent = 'var(--sprinkle-blue)' }) {
   const [idx, setIdx] = useState(0)
   const trackRef = useRef(null)
+  const animatingRef = useRef(false)
 
   const animateTransition = useCallback(async (newIdx) => {
+    if (animatingRef.current) return
+    animatingRef.current = true
     const gsap = (await import('gsap')).default
     const el = trackRef.current
-    if (!el) { setIdx(newIdx); return }
+    if (!el) { setIdx(newIdx); animatingRef.current = false; return }
     gsap.to(el, {
       opacity: 0, x: -20, duration: 0.22, ease: 'power2.in',
       onComplete: () => {
         setIdx(newIdx)
-        gsap.fromTo(el, { opacity: 0, x: 20 }, { opacity: 1, x: 0, duration: 0.35, ease: 'power2.out' })
+        gsap.fromTo(el, { opacity: 0, x: 20 }, {
+          opacity: 1, x: 0, duration: 0.35, ease: 'power2.out',
+          onComplete: () => { animatingRef.current = false },
+        })
       },
     })
   }, [])
@@ -41,11 +47,11 @@ export default function TestimonialCarousel({ reviews = REVIEWS }) {
         {/* Avatar */}
         <div style={{
           width: 64, height: 64, borderRadius: '50%',
-          background: 'var(--color-cream-deep)',
+          background: accent,
           margin: '0 auto 14px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 500,
-          color: 'var(--color-ink)',
+          color: '#fff',
         }}>
           {r.initials}
         </div>
@@ -66,7 +72,7 @@ export default function TestimonialCarousel({ reviews = REVIEWS }) {
           fontFamily: 'var(--font-display)', fontSize: 18, fontStyle: 'italic',
           lineHeight: 1.6, color: 'var(--color-body)', margin: 0,
         }}>
-          "{r.quote}"
+          &ldquo;{r.quote}&rdquo;
         </p>
 
         <div style={{
@@ -86,7 +92,7 @@ export default function TestimonialCarousel({ reviews = REVIEWS }) {
                 width: i === idx ? 20 : 8,
                 height: 8,
                 borderRadius: 9999,
-                background: i === idx ? 'var(--color-gold)' : 'var(--color-hairline)',
+                background: i === idx ? accent : 'var(--color-hairline)',
                 border: 'none',
                 cursor: 'pointer',
                 padding: 0,
@@ -113,7 +119,7 @@ function ArrowBtn({ onClick, dir }) {
       cursor: 'pointer', flexShrink: 0,
       transition: 'background 180ms ease, transform 180ms ease',
     }}
-    onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-cream-deep)'; e.currentTarget.style.transform = 'scale(1.05)' }}
+    onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.2)'; e.currentTarget.style.transform = 'scale(1.05)' }}
     onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = 'scale(1)' }}
     >
       {dir === 'left' ? <IconChevronLeft size={18} /> : <IconChevronRight size={18} />}

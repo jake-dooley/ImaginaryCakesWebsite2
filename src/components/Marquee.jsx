@@ -4,9 +4,9 @@ export default function Marquee({ items, color = 'gold' }) {
   const repeated = [...items, ...items, ...items, ...items, ...items, ...items]
   const bg = color === 'gold'
     ? 'var(--gradient-gold)'
+    : color === 'white'
+    ? '#fff'
     : 'linear-gradient(135deg, #F9E4E4, #F0C8C8, #F9E4E4)'
-  const textColor = color === 'gold' ? 'var(--color-ink)' : 'var(--color-ink)'
-
   return (
     <div style={{
       background: bg,
@@ -22,7 +22,7 @@ export default function Marquee({ items, color = 'gold' }) {
         fontWeight: 500,
         letterSpacing: '3px',
         textTransform: 'uppercase',
-        color: textColor,
+        color: 'var(--color-ink)',
         animation: 'marqueeScroll 40s linear infinite',
       }}>
         {repeated.map((t, i) => (

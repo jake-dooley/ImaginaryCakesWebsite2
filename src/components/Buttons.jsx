@@ -19,7 +19,7 @@ const BASE = {
   textDecoration: 'none',
 }
 
-// Gold gradient button — required for all buttons per CLAUDE.md
+// Gold gradient button — primary CTA style
 export const GoldButton = ({ children, onClick, href, style, className, type = 'button', disabled }) => {
   const [hover, setHover] = useState(false)
   const sharedStyle = {
@@ -52,9 +52,9 @@ export const OutlineButton = ({ children, onClick, href, style, className }) => 
   const [hover, setHover] = useState(false)
   const sharedStyle = {
     ...BASE,
-    background: hover ? 'var(--color-ink)' : 'transparent',
+    background: hover ? 'var(--page-accent, var(--color-ink))' : 'transparent',
     color: hover ? '#fff' : 'var(--color-ink)',
-    border: '1.5px solid var(--color-ink)',
+    border: `1.5px solid ${hover ? 'var(--page-accent, var(--color-ink))' : 'var(--color-ink)'}`,
     padding: '12px 27px',
     transition: 'background 200ms ease, color 200ms ease',
     ...style,

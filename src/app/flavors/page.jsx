@@ -9,12 +9,13 @@ import { FLAVORS } from '@/data'
 
 export default function FlavorsPage() {
   return (
-    <>
+    <div style={{ '--page-accent': 'var(--sprinkle-yellow)', background: 'var(--sprinkle-yellow)' }}>
       <PageHero
         eyebrow="The Flavor Menu"
         title="Pick a Cake,"
         titleItalicPart="Then Build a Flavor."
         sub="Every order starts with a cake flavor, an icing, and (optionally) a filling. Mix and match — there are over a thousand combinations on this page alone."
+        accentColor="#fff"
       />
 
       <section style={{ maxWidth: 1080, margin: '0 auto', padding: '8px 40px 96px' }}>
@@ -28,17 +29,14 @@ export default function FlavorsPage() {
       </section>
 
       <ClosingCTA />
-    </>
+    </div>
   )
 }
 
 function FlavorSection({ eyebrow, note, flavors, variant }) {
+  const accentColor = 'var(--sprinkle-yellow)'
   const ref = useScrollReveal({ y: 24 })
-  const bg = variant === 'cream'
-    ? 'var(--color-cream-soft)'
-    : variant === 'premium'
-    ? 'var(--color-blush-soft)'
-    : 'transparent'
+  const bg = variant ? '#fff' : 'transparent'
 
   return (
     <div ref={ref} style={{ padding: '32px 0', borderTop: '1px solid var(--color-hairline)' }}>
@@ -77,9 +75,9 @@ function FlavorSection({ eyebrow, note, flavors, variant }) {
                 alignItems: 'baseline',
               }}>
                 <span style={{
-                  width: 5, height: 5, border: '1px solid var(--color-gold)',
+                  width: 5, height: 5, border: `1px solid ${accentColor}`,
                   transform: 'rotate(45deg)', flexShrink: 0, marginTop: 6,
-                  background: 'var(--color-gold)', opacity: 0.7,
+                  background: accentColor, opacity: 0.7,
                 }} />
                 <span>{f}</span>
               </li>
@@ -102,7 +100,7 @@ function HelpCard() {
   return (
     <div ref={ref} style={{
       marginTop: 64,
-      background: 'linear-gradient(135deg, #FFEFC9, #FFF8E7)',
+      background: '#fff',
       borderRadius: 16,
       padding: '32px 40px',
       display: 'grid',
@@ -115,14 +113,14 @@ function HelpCard() {
         width: 64, height: 64, borderRadius: '50%',
         background: '#fff',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: 'var(--color-ink)',
+        color: 'var(--sprinkle-yellow)',
       }}>
         <IconHelp size={28} />
       </div>
       <div>
         <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 500 }}>Not sure where to start?</div>
         <div style={{ marginTop: 6, fontFamily: 'var(--font-display)', fontSize: 16, color: 'var(--color-body)' }}>
-          We host tastings by appointment. Bring three favorite combinations and we'll bake you samples to try in the shop.
+          We host tastings by appointment. Bring three favorite combinations and we&apos;ll bake you samples to try in the shop.
         </div>
       </div>
       <LavenderButton href="/contact">Book a Tasting</LavenderButton>

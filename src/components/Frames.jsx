@@ -5,24 +5,34 @@ export const ArchFrame = ({ src, width = 360, height = 480, style }) => {
   const ref = useRef(null)
 
   useEffect(() => {
+    let ctx
+    let cancelled = false
     ;(async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      if (cancelled) return
       gsap.registerPlugin(ScrollTrigger)
       const el = ref.current
       if (!el) return
-      gsap.fromTo(
-        el,
-        { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0 },
-        {
-          clipPath: 'inset(0% 0% 0% 0%)',
-          opacity: 1,
-          duration: 1.1,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
-        }
-      )
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          el,
+          { clipPath: 'inset(100% 0% 0% 0%)', opacity: 0 },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            opacity: 1,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+          }
+        )
+      })
     })()
+
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
   }, [])
 
   return (
@@ -31,7 +41,7 @@ export const ArchFrame = ({ src, width = 360, height = 480, style }) => {
       height,
       borderRadius: `${width / 1.8}px ${width / 1.8}px 16px 16px`,
       overflow: 'hidden',
-      background: 'var(--color-cream-deep)',
+      background: 'rgba(255,255,255,0.25)',
       position: 'relative',
       boxShadow: 'var(--shadow-lift)',
       ...style,
@@ -51,25 +61,35 @@ export const OvalFrame = ({ src, width = 220, height = 320, label, sub, style })
   const ref = useRef(null)
 
   useEffect(() => {
+    let ctx
+    let cancelled = false
     ;(async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      if (cancelled) return
       gsap.registerPlugin(ScrollTrigger)
       const el = ref.current
       if (!el) return
-      gsap.fromTo(
-        el,
-        { scale: 0.88, opacity: 0, y: 30 },
-        {
-          scale: 1,
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
-        }
-      )
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          el,
+          { scale: 0.88, opacity: 0, y: 30 },
+          {
+            scale: 1,
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+          }
+        )
+      })
     })()
+
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
   }, [])
 
   return (
@@ -79,7 +99,7 @@ export const OvalFrame = ({ src, width = 220, height = 320, label, sub, style })
         height,
         borderRadius: 9999,
         overflow: 'hidden',
-        background: 'var(--color-cream-deep)',
+        background: 'rgba(255,255,255,0.25)',
       }}>
         {src && (
           <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

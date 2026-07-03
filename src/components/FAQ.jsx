@@ -4,7 +4,7 @@ import { IconPlus, IconMinus, IconHelp } from './Icons'
 import { LavenderButton } from './Buttons'
 import { FAQS } from '@/data'
 
-export function FAQAccordion({ items = FAQS }) {
+export function FAQAccordion({ items = FAQS, tint = '#fff' }) {
   const [open, setOpen] = useState(0)
 
   return (
@@ -15,13 +15,14 @@ export function FAQAccordion({ items = FAQS }) {
           item={it}
           isOpen={open === i}
           onToggle={() => setOpen(open === i ? -1 : i)}
+          bg={tint}
         />
       ))}
     </div>
   )
 }
 
-function FAQItem({ item, isOpen, onToggle }) {
+function FAQItem({ item, isOpen, onToggle, bg = '#fff' }) {
   const bodyRef = useRef(null)
 
   useEffect(() => {
@@ -39,11 +40,11 @@ function FAQItem({ item, isOpen, onToggle }) {
 
   return (
     <div onClick={onToggle} style={{
-      background: 'var(--color-cream-soft)',
+      background: bg,
       borderRadius: 16,
       padding: '20px 24px',
       cursor: 'pointer',
-      border: `1px solid ${isOpen ? 'rgba(201,168,76,.3)' : 'transparent'}`,
+      border: `1px solid ${isOpen ? 'rgba(79,163,217,.4)' : 'transparent'}`,
       transition: 'border-color 200ms ease',
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
@@ -74,10 +75,10 @@ function FAQItem({ item, isOpen, onToggle }) {
   )
 }
 
-export function FAQHelpCard({ href = '/contact' }) {
+export function FAQHelpCard({ href = '/contact', tint = '#fff', accent = 'var(--sprinkle-blue)' }) {
   return (
     <div style={{
-      background: 'linear-gradient(135deg, #FFEFC9, #FFF8E7)',
+      background: '#fff',
       borderRadius: 16,
       padding: 28,
       display: 'flex',
@@ -90,12 +91,12 @@ export function FAQHelpCard({ href = '/contact' }) {
         width: 44, height: 44, borderRadius: '50%',
         background: '#fff',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: 'var(--color-ink)',
+        color: accent,
       }}>
         <IconHelp size={22} />
       </div>
       <div style={{ fontFamily: 'var(--font-display)', fontSize: 17 }}>
-        <b style={{ fontWeight: 600 }}>Didn't find your question?</b>
+        <b style={{ fontWeight: 600 }}>Didn&apos;t find your question?</b>
         <div style={{ marginTop: 4, color: 'var(--color-body)' }}>
           Reach out to Cindy directly — we love talking cake.
         </div>

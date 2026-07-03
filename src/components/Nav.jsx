@@ -20,17 +20,25 @@ export default function Nav() {
   const navRef = useRef(null)
 
   useEffect(() => {
+    let trigger
+    let cancelled = false
     ;(async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      if (cancelled) return
       gsap.registerPlugin(ScrollTrigger)
 
-      ScrollTrigger.create({
+      trigger = ScrollTrigger.create({
         start: 'top -80',
         onEnter: () => setCompact(true),
         onLeaveBack: () => setCompact(false),
       })
     })()
+
+    return () => {
+      cancelled = true
+      trigger?.kill()
+    }
   }, [])
 
   useEffect(() => {
@@ -63,14 +71,15 @@ export default function Nav() {
         boxShadow: '0 1px 0 rgba(44,24,16,.08)',
       }}>
         {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', padding: '4px 0' }}>
           <img
-            src="/assets/logo.png"
-            alt="Imaginary Cakes"
+            className="nav-logo"
+            src="/assets/Imaginary_cakes_Logo_final.png"
+            alt="Imaginary Cakes logo"
             style={{
-              height: compact ? 40 : 54,
+              maxHeight: compact ? 54 : 74,
               width: 'auto',
-              transition: 'height 0.35s ease',
+              transition: 'max-height 0.35s ease',
             }}
           />
         </Link>
@@ -132,7 +141,7 @@ export default function Nav() {
       {mobileOpen && (
         <div style={{
           position: 'fixed',
-          top: 64,
+          top: compact ? 64 : 84,
           left: 0,
           right: 0,
           background: 'var(--color-cream)',
@@ -167,6 +176,7 @@ export default function Nav() {
           .nav-hamburger { display: flex !important; }
           header nav { display: none !important; }
           .nav-order-btn { display: none !important; }
+          .nav-logo { max-height: 50px !important; }
         }
       `}</style>
     </>

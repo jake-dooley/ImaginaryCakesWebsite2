@@ -13,12 +13,12 @@ export function WorkTile({ cake }) {
         borderRadius: 16,
         overflow: 'hidden',
         cursor: 'pointer',
-        background: 'var(--color-cream-deep)',
+        background: 'rgba(255,255,255,0.25)',
         transform: hover ? 'scale(1.02)' : 'scale(1)',
         transition: 'transform 320ms ease',
       }}
     >
-      <img src={cake.photo} alt={cake.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      <img src={cake.photo} alt={cake.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
       <div style={{
         position: 'absolute', inset: 0,
         background: hover ? 'rgba(44,24,16,.52)' : 'rgba(44,24,16,0)',

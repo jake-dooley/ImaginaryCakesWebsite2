@@ -13,24 +13,34 @@ export default function GalleryGrid() {
 
   useEffect(() => {
     // Initial stagger reveal on mount
+    let ctx
+    let cancelled = false
     ;(async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      if (cancelled) return
       gsap.registerPlugin(ScrollTrigger)
       const el = gridRef.current
       if (!el) return
-      gsap.fromTo(
-        el.querySelectorAll('.gallery-tile'),
-        { opacity: 0, scale: 0.93, y: 20 },
-        {
-          opacity: 1, scale: 1, y: 0,
-          duration: 0.6,
-          stagger: { amount: 0.8, from: 'start' },
-          ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
-        }
-      )
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          el.querySelectorAll('.gallery-tile'),
+          { opacity: 0, scale: 0.93, y: 20 },
+          {
+            opacity: 1, scale: 1, y: 0,
+            duration: 0.6,
+            stagger: { amount: 0.8, from: 'start' },
+            ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+          }
+        )
+      })
     })()
+
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
   }, [])
 
   const handleFilter = async (key) => {
@@ -67,6 +77,7 @@ export default function GalleryGrid() {
           <button
             key={c.key}
             onClick={() => handleFilter(c.key)}
+            className={`gallery-chip${filter === c.key ? ' gallery-chip--active' : ''}`}
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 12,
@@ -93,7 +104,7 @@ export default function GalleryGrid() {
       </div>
 
       {/* Grid */}
-      <div ref={gridRef} style={{
+      <div ref={gridRef} className="gallery-grid-wrap" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
         gap: 20,
@@ -104,6 +115,10 @@ export default function GalleryGrid() {
       </div>
 
       <style>{`
+        .gallery-chip:not(.gallery-chip--active):hover {
+          border-color: rgba(255,255,255,0.8) !important;
+          color: #fff !important;
+        }
         @media (max-width: 1024px) {
           .gallery-grid-wrap { grid-template-columns: repeat(3, 1fr) !important; }
         }
@@ -127,13 +142,13 @@ function GalleryTile({ cake, tall }) {
         aspectRatio: tall ? '3 / 4' : '1 / 1',
         borderRadius: 16,
         overflow: 'hidden',
-        background: 'var(--color-cream-deep)',
+        background: 'rgba(255,255,255,0.2)',
         cursor: 'pointer',
         transform: hover ? 'scale(1.02)' : 'scale(1)',
         transition: 'transform 300ms ease',
       }}
     >
-      <img src={cake.photo} alt={cake.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <img src={cake.photo} alt={cake.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       <div style={{
         position: 'absolute', inset: 0,
         background: hover ? 'rgba(44,24,16,.52)' : 'rgba(44,24,16,0)',
