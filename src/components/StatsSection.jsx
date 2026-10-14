@@ -52,7 +52,7 @@ export default function StatsSection() {
 
   return (
     <section ref={ref} style={{ background: '#fff', padding: '72px 48px' }}>
-      <div style={{
+      <div className="stats-grid" style={{
         maxWidth: 1080, margin: '0 auto',
         display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
         gap: 32, textAlign: 'center',
@@ -81,7 +81,7 @@ export default function StatsSection() {
       </div>
       <style>{`
         @media (max-width: 680px) {
-          section > div { grid-template-columns: repeat(2, 1fr) !important; }
+          .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
     </section>

@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer style={{ padding: '72px 48px 24px', background: 'var(--color-cream)' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto' }}>
-        <div style={{
+        <div className="footer-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1.6fr 1fr 1fr 1fr',
           gap: 48,
@@ -77,10 +77,10 @@ export default function Footer() {
 
       <style>{`
         @media (max-width: 900px) {
-          footer > div > div { grid-template-columns: 1fr 1fr !important; }
+          .footer-grid { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 600px) {
-          footer > div > div { grid-template-columns: 1fr !important; }
+          .footer-grid { grid-template-columns: 1fr !important; }
           footer { padding: 48px 24px 16px !important; }
         }
       `}</style>

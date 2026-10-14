@@ -5,7 +5,7 @@ export const BUSINESS = {
   phone: '(910) 795-0920',
   email: 'yum@imaginarycakes.com',
   website: 'imaginarycakes.com',
-  hours: 'Mon – Fri, 9am – 3pm',
+  hours: 'Mon – Fri, 9am – 4:30pm',
   hoursSaturday: 'Sat, 10am – 12pm',
   hoursNote: 'Sunday closed',
   notice: 'Minimum 2-week notice for all orders',
@@ -35,10 +35,10 @@ export const AWARDS = [
 export const CATEGORIES = [
   { key: 'weddings', label: 'Weddings', sub: 'From intimate to 600 guests' },
   { key: 'shower', label: 'Baby Shower & Christenings', sub: 'Soft palettes, gentle themes' },
-  { key: 'smash', label: 'Smash Cakes', sub: 'First-birthday favourites' },
+  { key: 'smash', label: 'Smash Cakes', sub: 'First-birthday favorites' },
   { key: 'adult', label: 'Adult Cakes', sub: 'Cheeky to refined' },
   { key: 'birthday', label: 'Celebration & Birthday', sub: 'Every age, every theme' },
-  { key: 'pop', label: 'Pop Culture & Sports', sub: 'Teams, characters, fandoms' },
+  { key: 'pop', label: 'Pop Culture & Sports', sub: 'Teams, characters, franchises' },
   { key: '3d', label: '3D Cakes', sub: 'Sculpted from the cake itself' },
   { key: 'gourmet', label: 'Gourmet Cakes', sub: 'Plated dessert reimagined' },
   { key: 'desserts', label: 'Small Desserts', sub: 'Cupcakes, cookies, tarts' },
@@ -112,7 +112,7 @@ export const REVIEWS = [
 export const FAQS = [
   {
     q: 'How do I order a custom cake?',
-    a: 'Reach out via the Contact page with your event date, guest count, flavor ideas, and any inspiration photos. Cindy will reply within one business day and walk you through a tasting if needed.',
+    a: 'Reach out via the Contact page with your event date, guest count, flavor ideas, and any inspiration photos. Carris will reply within one business day and walk you through a tasting if needed.',
   },
   {
     q: "What's your lead time?",

@@ -184,7 +184,7 @@ function ContactSection() {
 
   return (
     <section style={{ maxWidth: 1080, margin: '0 auto', padding: '0 40px 96px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 48, alignItems: 'flex-start' }}>
+      <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 48, alignItems: 'flex-start' }}>
 
         {/* Form */}
         <form ref={formRef} onSubmit={handleSubmit}
@@ -219,7 +219,7 @@ function ContactSection() {
 
           <div className="form-field" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <Field label="Your Name">
-              <input required style={inputStyle} value={form.name} onChange={set('name')} placeholder="Cindy Brown" onFocus={handleFocus} onBlur={handleBlur} />
+              <input required style={inputStyle} value={form.name} onChange={set('name')} placeholder="Carris Loomis" onFocus={handleFocus} onBlur={handleBlur} />
             </Field>
             <Field label="Phone">
               <input type="tel" style={inputStyle} value={form.phone} onChange={set('phone')} placeholder="(910) 555-0100" onFocus={handleFocus} onBlur={handleBlur} />
@@ -436,14 +436,14 @@ function ContactSection() {
             color: 'var(--color-body)',
             lineHeight: 1.55,
           }}>
-            All orders require 24-48 hour lead time
+            All orders require a 24–48 hour lead time
           </div>
         </aside>
       </div>
 
       <style>{`
         @media (max-width: 860px) {
-          section > div[style*="1.4fr 1fr"] { grid-template-columns: 1fr !important; }
+          .contact-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 560px) {
           div[style*="1fr 1fr"] { grid-template-columns: 1fr !important; }

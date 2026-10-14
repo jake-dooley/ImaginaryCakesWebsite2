@@ -19,7 +19,7 @@ export default function ClosingCTA() {
         background: 'rgba(201,168,76,.06)',
         pointerEvents: 'none',
       }} />
-      <div ref={ref} style={{
+      <div ref={ref} className="cta-grid" style={{
         maxWidth: 1080,
         margin: '0 auto',
         display: 'grid',
@@ -45,7 +45,7 @@ export default function ClosingCTA() {
       </div>
       <style>{`
         @media (max-width: 680px) {
-          section > div { grid-template-columns: 1fr !important; }
+          .cta-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

@@ -60,7 +60,7 @@ function StorySection() {
 
   return (
     <section style={{ maxWidth: 1240, margin: '0 auto', padding: '16px 48px 96px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 40, alignItems: 'center' }}>
+      <div className="story-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 40, alignItems: 'center' }}>
         <div ref={imgRef} style={{ borderRadius: 16, overflow: 'hidden', aspectRatio: '5 / 4' }}>
           <img
             src="https://static.wixstatic.com/media/af4445_a40060ed7c0c4a0d869c9aadecaf7930~mv2.jpg/v1/fill/w_1200,h_960,q_90,enc_avif,quality_auto/af4445_a40060ed7c0c4a0d869c9aadecaf7930~mv2.jpg"
@@ -87,7 +87,7 @@ function StorySection() {
       </div>
       <style>{`
         @media (max-width: 860px) {
-          section > div[style*="1.2fr 1fr"] { grid-template-columns: 1fr !important; }
+          .story-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
@@ -99,9 +99,9 @@ function WhatWeMakeSection() {
   return (
     <section style={{ maxWidth: 1240, margin: '0 auto', padding: '72px 48px 96px' }}>
       <SectionIntro eyebrow="What We Make" title="Custom, By Definition —" titleItalicPart="Never From a Catalogue." accentColor="#fff" />
-      <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
+      <div ref={ref} className="feature-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>
         {[
-          { title: 'Buttercream & Fondant', body: 'Italian and Swiss buttercream piped fresh; smooth fondant in vanilla and chocolate. We pick the medium that suits your design, never the other way round.', bg: '#fff' },
+          { title: 'Buttercream & Fondant', body: 'Italian and Swiss buttercream piped fresh; smooth fondant in vanilla and chocolate. We pick the medium that suits your design, never the other way around.', bg: '#fff' },
           { title: 'Fully Sculpted 3D Cakes', body: 'From hand-painted teapots to life-size animal portraits. Internal supports and edible cake — even the seashells were edible.', bg: '#fff' },
           { title: 'Dietary Considerations', body: 'Vegan chocolate with vegan buttercream, and gluten-free options on most flavors. We\'ll talk through the right adjustment for your guests.', bg: '#fff' },
         ].map((c) => (
@@ -117,7 +117,7 @@ function WhatWeMakeSection() {
       </div>
       <style>{`
         @media (max-width: 860px) {
-          section > div[style*="repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
+          .feature-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

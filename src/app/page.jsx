@@ -73,7 +73,7 @@ function HeroSection() {
       <BotanicalSprig side="left" size={120} style={{ position: 'absolute', left: -8, bottom: 80 }} />
       <BotanicalSprig side="right" size={120} style={{ position: 'absolute', right: -8, bottom: 80 }} />
 
-      <div style={{
+      <div className="hero-grid" style={{
         maxWidth: 1240,
         margin: '0 auto',
         display: 'grid',
@@ -125,7 +125,7 @@ function HeroSection() {
         </div>
 
         {/* Visual */}
-        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+        <div className="hero-visual" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
           <ArchFrame
             src="https://static.wixstatic.com/media/af4445_3fb2b3e952fe4b3b8b9f9ff9d4500a8a~mv2.jpg/v1/fill/w_800,h_1067,q_90,enc_avif,quality_auto/af4445_3fb2b3e952fe4b3b8b9f9ff9d4500a8a~mv2.jpg"
             width={400} height={520}
@@ -135,8 +135,8 @@ function HeroSection() {
 
       <style>{`
         @media (max-width: 860px) {
-          section:first-of-type > div { grid-template-columns: 1fr !important; }
-          section:first-of-type > div > div:last-child { display: none !important; }
+          .hero-grid { grid-template-columns: 1fr !important; }
+          .hero-visual { display: none !important; }
         }
         @media (max-width: 600px) {
           section:first-of-type { padding: 32px 24px 64px !important; }
@@ -243,7 +243,7 @@ function CategoriesSection() {
         accentColor="#fff"
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32, alignItems: 'end' }}>
+      <div className="categories-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32, alignItems: 'end' }}>
         <OvalFrame
           src="https://static.wixstatic.com/media/af4445_637521836d53407ea85648660f530d3f~mv2.jpeg/v1/fill/w_600,h_800,q_90,enc_avif,quality_auto/af4445_637521836d53407ea85648660f530d3f~mv2.jpeg"
           label="Birthday & Celebration" sub="From smash cakes to milestone tiers"
@@ -272,7 +272,7 @@ function CategoriesSection() {
       <style>{`
         @media (max-width: 760px) {
           .oval-item { justify-content: center !important; }
-          section > div[style*="grid-template-columns: 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+          .categories-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
@@ -292,7 +292,7 @@ function OurWorksSection() {
         sub="A peek at recent celebrations baked from our Wilmington kitchen."
         accentColor="#fff"
       />
-      <div ref={ref} style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+      <div ref={ref} className="works-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
         {CAKE_PHOTOS.slice(0, 4).map((c) => (
           <div key={c.id} className="work-tile">
             <WorkTile cake={c} />
@@ -304,10 +304,10 @@ function OurWorksSection() {
       </div>
       <style>{`
         @media (max-width: 860px) {
-          section > div[style*="repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+          .works-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
         @media (max-width: 480px) {
-          section > div[style*="repeat(4, 1fr)"] { grid-template-columns: 1fr !important; }
+          .works-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
@@ -339,13 +339,13 @@ function FAQSection() {
   return (
     <section style={{ padding: '96px 48px', maxWidth: 1080, margin: '0 auto', position: 'relative' }}>
       <SectionIntro eyebrow="FAQ" title="Find Answers to Your Most" titleItalicPart="Common Questions." accentColor="#fff" />
-      <div ref={ref} style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 32, alignItems: 'flex-start' }}>
+      <div ref={ref} className="faq-grid" style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 32, alignItems: 'flex-start' }}>
         <FAQAccordion items={FAQS.slice(0, 5)} />
         <FAQHelpCard href="/contact" accent="var(--sprinkle-blue)" />
       </div>
       <style>{`
         @media (max-width: 760px) {
-          section > div[style*="1.5fr 1fr"] { grid-template-columns: 1fr !important; }
+          .faq-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

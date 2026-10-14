@@ -131,53 +131,18 @@ export default function GalleryGrid() {
 }
 
 function GalleryTile({ cake, tall }) {
-  const [hover, setHover] = useState(false)
   return (
     <div
       className="gallery-tile"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
       style={{
         position: 'relative',
         aspectRatio: tall ? '3 / 4' : '1 / 1',
         borderRadius: 16,
         overflow: 'hidden',
         background: 'rgba(255,255,255,0.2)',
-        cursor: 'pointer',
-        transform: hover ? 'scale(1.02)' : 'scale(1)',
-        transition: 'transform 300ms ease',
       }}
     >
       <img src={cake.photo} alt={cake.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: hover ? 'rgba(44,24,16,.52)' : 'rgba(44,24,16,0)',
-        display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
-        padding: 16, transition: 'background 220ms ease', color: '#fff',
-      }}>
-        <div style={{
-          fontFamily: 'var(--font-display)', fontSize: 11, letterSpacing: '2.5px', textTransform: 'uppercase',
-          opacity: hover ? 1 : 0, transition: 'opacity 220ms ease 60ms',
-        }}>
-          {(CATEGORIES.find((c) => c.key === cake.category) || {}).label}
-        </div>
-        <div style={{
-          fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 500, marginTop: 4,
-          opacity: hover ? 1 : 0,
-          transform: hover ? 'translateY(0)' : 'translateY(8px)',
-          transition: 'opacity 220ms ease 80ms, transform 220ms ease 80ms',
-        }}>
-          {cake.title}
-        </div>
-        <div style={{
-          fontFamily: 'var(--font-display)', fontStyle: 'italic', fontSize: 13, marginTop: 4,
-          opacity: hover ? 0.9 : 0,
-          transform: hover ? 'translateY(0)' : 'translateY(8px)',
-          transition: 'opacity 220ms ease 110ms, transform 220ms ease 110ms',
-        }}>
-          {cake.baker}
-        </div>
-      </div>
     </div>
   )
 }

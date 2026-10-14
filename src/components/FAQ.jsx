@@ -98,7 +98,7 @@ export function FAQHelpCard({ href = '/contact', tint = '#fff', accent = 'var(--
       <div style={{ fontFamily: 'var(--font-display)', fontSize: 17 }}>
         <b style={{ fontWeight: 600 }}>Didn&apos;t find your question?</b>
         <div style={{ marginTop: 4, color: 'var(--color-body)' }}>
-          Reach out to Cindy directly — we love talking cake.
+          Reach out to Carris directly — we love talking cake.
         </div>
       </div>
       <LavenderButton href={href}>Get In Touch</LavenderButton>
